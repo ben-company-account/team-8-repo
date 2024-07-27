@@ -26,16 +26,19 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
 
         if (mapView) {
+            console.log("HERE")
             await mapView.view.when()
             const allEditableLayers: __esri.Collection<FeatureLayer | __esri.SceneLayer | __esri.SubtypeGroupLayer> = mapView.view.map.editableLayers
 
             // Will hopefully just be one feature layer 
-            var featureLayers: __esri.Collection<FeatureLayer>
-            allEditableLayers.map((lay) => {
-                if (lay instanceof FeatureLayer) {
+            const featureLayers: __esri.Collection<FeatureLayer> = new __esri.Collection<FeatureLayer>()
+
+            // Add layers of type FeatureLayer to the Colections object featureLayers 
+            for (const lay of allEditableLayers){
+                if (lay.type === "feature"){
                     featureLayers.add(lay)
                 }
-            })
+            }
 
             const featureLayer: FeatureLayer = featureLayers.at(0)
             featureLayer.queryFeatures().then((res: __esri.FeatureSet) => {
