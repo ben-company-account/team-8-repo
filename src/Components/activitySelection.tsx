@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { CalciteList, CalciteListItem } from "@esri/calcite-components-react";
-import { treeTypesDict } from "./activitiesManifest";
-import { plantsAnimalsDict } from "./activitiesManifest";
-import { activitiesDict } from "./activitiesManifest";
-import { otherAmenitiesDict } from "./activitiesManifest";
+import { treeTypesDict } from "../runtime/activitiesManifest";
+import { plantsAnimalsDict } from "../runtime/activitiesManifest";
+import { activitiesDict } from "../runtime/activitiesManifest";
+import { otherAmenitiesDict } from "../runtime/activitiesManifest";
 export const ActivitiesList = (): JSX.Element => {
   //list of keys that will be used for making fields in comboboxes
   const treeListItems = [];
