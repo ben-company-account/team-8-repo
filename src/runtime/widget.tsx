@@ -1,5 +1,5 @@
 import { AllWidgetProps } from "jimu-core"
-import React from "jimu-core"
+import React from "react"
 import { JimuMapView, JimuMapViewComponent } from "jimu-arcgis"
 import { useState } from "react"
 
@@ -7,7 +7,7 @@ type State = {
     jimuMapView: JimuMapView
 }
 
-const Widget = (props: AllWidgetProps<unknown>)=> {
+const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
     const [state, setState] = useState<State>({ jimuMapView: null })
 
@@ -32,9 +32,15 @@ const Widget = (props: AllWidgetProps<unknown>)=> {
     }
 
     return (
-        <JimuMapViewComponent
-            useMapWidgetId={props.useMapWidgetIds?.[0]}
-            onActiveViewChange={activeViewChangeHandler}
-        />
+        <div className="widget">
+            hello
+            <JimuMapViewComponent
+                useMapWidgetId={props.useMapWidgetIds?.[0]}
+                onActiveViewChange={activeViewChangeHandler}
+            />
+        </div>
+
     )
 }
+
+export default Widget; 
