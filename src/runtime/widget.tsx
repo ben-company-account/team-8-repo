@@ -36,13 +36,13 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         determineOrdering()
     }
 
-    const determineOrdering = (): void => {
-
-        // For each feature / graphic in our feature layer 
-        if (allFeatures) {
-
-            allFeatures.map((graph) => {
-                var score = 0
+  const determineOrdering = (): void => {
+    console.log("SDFDS")
+    // For each feature / graphic in our feature layer
+    if (allFeatures) {
+        console.log("SDFSDF")
+      allFeatures.map((graph) => {
+        var score = 0;
 
                 // Go through every attribute in the feature 
                 graph.attributes.map((prop: string) => {
@@ -64,16 +64,19 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         }
     }
 
-    const updateAllFeatures = async (): Promise<void> => {
+  const updateAllFeatures = async (jmv: JimuMapView): Promise<void> => {
+    if (jmv && jmv.view) {
+      console.log(jmv)
+      console.log("HERE");
+      await jmv.view.when();
+      const allEditableLayers: __esri.Collection<
+        FeatureLayer | __esri.SceneLayer | __esri.SubtypeGroupLayer
+      > = jmv.view.map.editableLayers;
 
+      console.log(allEditableLayers)
 
-        if (mapView) {
-            console.log("HERE")
-            await mapView.view.when()
-            const allEditableLayers: __esri.Collection<FeatureLayer | __esri.SceneLayer | __esri.SubtypeGroupLayer> = mapView.view.map.editableLayers
-
-            // Will hopefully just be one feature layer 
-            const featureLayers: __esri.Collection<FeatureLayer> = new __esri.Collection<FeatureLayer>()
+      // Will hopefully just be one feature layer
+      let featureLayers: __esri.Collection<FeatureLayer>
 
             // Add layers of type FeatureLayer to the Colections object featureLayers 
             for (const lay of allEditableLayers) {
@@ -99,14 +102,12 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
 
 
-    const activeViewChangeHandler = (jmv: JimuMapView): void => {
-        if (jmv) {
-            setMapView(jmv)
-        }
-
-        else {
-            setMapView(jmv)
-        }
+  const activeViewChangeHandler = (jmv: JimuMapView): void => {
+    if (jmv) {
+      setMapView(jmv)
+      updateAllFeatures(jmv)
+    } else {
+      setMapView(jmv);
     }
 
     return (
