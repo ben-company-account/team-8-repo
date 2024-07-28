@@ -155,6 +155,7 @@ export const ActivitiesList = (props: Props): JSX.Element => {
                 {amenities}
               </CalciteList>
             </CalciteBlock>
+            {/* <CalciteButton onClick={}>clear filters</CalciteButton> */}
             <CalciteBlock heading="Rank" open>
               <CalciteList
                 dragEnabled={true}
