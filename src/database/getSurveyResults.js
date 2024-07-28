@@ -128,5 +128,3 @@ async function process_numerical_post_trip_data() {
         console.error('Error connecting to MongoDB:', error);
     });
 }
-
-process_post_trip_survey()
