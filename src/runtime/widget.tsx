@@ -104,6 +104,8 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
   const activeViewChangeHandler = (jmv: JimuMapView): void => {
     if (jmv) {
       setMapView(jmv);
+      updateAllFeatures(jmv);
+      //setImportantAttributes(["deer_score", "fern_pine_score"]);
     } else {
       setMapView(jmv);
     }
