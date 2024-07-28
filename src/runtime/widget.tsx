@@ -12,7 +12,7 @@ import { AllWidgetProps } from "jimu-core";
 import React from "react";
 import { JimuMapView, JimuMapViewComponent } from "jimu-arcgis";
 import { useState } from "react";
-import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
+// import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import Feature from "@arcgis/core/widgets/Feature";
 import Graphic from "@arcgis/core/Graphic";
 import { CalciteButton } from "calcite-components";
@@ -20,6 +20,12 @@ import { useEffect } from "react";
 import ResultItem from "../Components/resultItem";
 import { CalciteLabel } from "calcite-components";
 import { ActivitiesList } from "../Components/activitySelection";
+import FeatureLayer from "esri/layers/FeatureLayer"
+import WebMap from "@arcgis/core/WebMap";
+import esriRequest from 'esri/request';
+
+import jsonObj from "./thing.json"
+
 
 
 const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
@@ -84,22 +90,78 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         FeatureLayer | __esri.SceneLayer | __esri.SubtypeGroupLayer
       > = jmv.view.map.editableLayers;
 
-      console.log(allEditableLayers.length);
+      const graphics: __esri.Collection<Graphic> = jmv.view.graphics
 
-      const layer = new FeatureLayer({
-        // URL to the service
-        url: "https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4",
+      for (const graph of graphics) {
+        console.log(graph)
+      }
+
+
+      console.log(jsonObj)
+      // for (const obj in jsonObj.objectIds){
+      //   esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", 
+      //     {
+      //       responseType: "json",
+      //       body: `
+      //       {
+
+      //       }`
+      //     }
+      //   )
+
+
+      esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", {
+        responseType: "json", 
+        query: {
+          f: "json", 
+          where: "1=1"
+        }
+      }).then(res => {
+        console.log(res)
+        
+      })
+
+        esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", {
+          responseType: "json",
+          query: {
+            f: "json",
+            objectIds: 1354
+          }
+      }
+    ).then((response) => {
+      // Access the feature from the response
+      const feature = response.data.features[0];
+    
+      // Create a graphic using the feature's geometry and attributes
+      const graphic = new Graphic({
+        geometry: feature.geometry,
+        attributes: feature.attributes
       });
+    
+      // Use the graphic in your code
+      console.log(graphic);
+    }).catch((error) => {
+      // Handle any errors that occur during the request
+      console.error('Error:', error);
+    });
 
-      console.log("SDFDSF");
-      await layer.load();
 
-      layer.queryFeatures().then((res: __esri.FeatureSet) => {
-        console.log("HERE?");
 
-        setAllFeatures(res.features);
-        console.log("all features set");
-      });
+
+      // const layer = new FeatureLayer({
+      //   // URL to the service
+      //   url: "https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4",
+      // });
+
+      // console.log("SDFDSF");
+      // await layer.load();
+
+      // layer.queryFeatures().then((res: __esri.FeatureSet) => {
+      //   console.log("HERE?");
+
+      //   setAllFeatures(res.features);
+      //   console.log("all features set");
+      // });
     } else {
       setAllFeatures(null);
       console.log("all features not selected");
@@ -124,8 +186,8 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         locationListItems={
           topTenFeatures
             ? topTenFeatures.map((graph) => (
-                <ResultItem graphic={graph} mapView={mapView} />
-              ))
+              <ResultItem graphic={graph} mapView={mapView} />
+            ))
             : []
         }
         func={run}
