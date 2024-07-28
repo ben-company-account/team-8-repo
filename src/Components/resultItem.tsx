@@ -1,6 +1,7 @@
 import Graphic from "@arcgis/core/Graphic"
 import { JimuMapView } from "jimu-arcgis"
 import React from "react"
+import { CalciteListItem } from "calcite-components"
 
 const ResultItem = ({graphic, mapView}): React.ReactElement => {
 
@@ -10,9 +11,10 @@ const ResultItem = ({graphic, mapView}): React.ReactElement => {
     }
 
     return (
-        <div className="result-item" onClick={zoomTo}>
-            thing
-        </div>
+        // change this to CalciteListItem and make on click OnCalciteListItemSelect={()=> zoomTo
+        <CalciteListItem onCalciteListItemSelect={zoomTo} label={graphic.attributes.parkname}>
+            
+        </CalciteListItem>
     )
 }   
 
