@@ -8,29 +8,26 @@
 
 */
 
-
-import { AllWidgetProps } from "jimu-core"
-import React from "react"
-import { JimuMapView, JimuMapViewComponent } from "jimu-arcgis"
-import { useState } from "react"
-import FeatureLayer from "@arcgis/core/layers/FeatureLayer"
-import Feature from "@arcgis/core/widgets/Feature"
-import Graphic from "@arcgis/core/Graphic"
-import { CalciteButton } from "calcite-components"  
+import { AllWidgetProps } from "jimu-core";
+import React from "react";
+import { JimuMapView, JimuMapViewComponent } from "jimu-arcgis";
+import { useState } from "react";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
+import Feature from "@arcgis/core/widgets/Feature";
+import Graphic from "@arcgis/core/Graphic";
+import { CalciteButton } from "calcite-components"  ;
+import { ActivitiesList } from "../Components/activitySelection";
 import { useEffect } from "react"
 import ResultItem from "../Components/resultItem"
 
-type State = {
-
-}
+type State = {};
 
 const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
+  const [state, setState] = useState<State>();
 
-    const [state, setState] = useState<State>()
+  const [mapView, setMapView] = useState<JimuMapView>(null);
 
-    const [mapView, setMapView] = useState<JimuMapView>(null);
-
-    const [allFeatures, setAllFeatures] = useState<Graphic[]>(null)
+  const [allFeatures, setAllFeatures] = useState<Graphic[]>(null);
 
     const [importantAttributes, setImportantAttributes] = useState<string[]>()
 
@@ -75,6 +72,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         setTopTenFeatures(topTen)
 
     }
+
 
     const updateAllFeatures = async (jmv: JimuMapView): Promise<void> => {
         if (jmv && jmv.view) {
@@ -138,6 +136,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
             setMapView(jmv);
         }
     }
+  
 
     return (
         <div className="widget">
