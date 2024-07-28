@@ -20,13 +20,13 @@ export const ActivitiesList = (): JSX.Element => {
   const [rankingItems, setRankingItems] = useState<string[]>([]);
   const [htmlItems, setHtmlItems] = useState<any[]>([]);
   const [finalRanking, setFinalRanking] = useState<string[]>([]);
-  // useEffect(() => {
-  //   setHtmlItems(
-  //     rankingItems.map((item) => (
-  //       <CalciteListItem label={item}></CalciteListItem>
-  //     ))
-  //   );
-  // }, [rankingItems]);
+  useEffect(() => {
+    setHtmlItems(
+      rankingItems.map((item) => (
+        <CalciteListItem label={item}></CalciteListItem>
+      ))
+    );
+  }, [rankingItems]);
   for (const tree in treeTypesDict) {
     treeListItems.push(
       <CalciteListItem label={treeTypesDict[tree]}></CalciteListItem>
@@ -126,12 +126,6 @@ export const ActivitiesList = (): JSX.Element => {
                 const result = [...set1Exclusive, ...set2Exclusive];
                 //console.log(`Result: ${result.join(", ")}`);
                 setRankingItems(result);
-                setHtmlItems(
-                  result.map((item) => (
-                    <CalciteListItem label={item}></CalciteListItem>
-                  ))
-                );
-                console.log("hi");
               }}
             >
               {amenities}
