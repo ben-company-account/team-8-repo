@@ -70,7 +70,7 @@ export const ActivitiesList = (props: Props): JSX.Element => {
 
   return (
     <CalcitePanel>
-      <div style={{ maxHeight: "600px", overflowY: "auto", padding: "10px" }}>
+      <div style={{ maxHeight: "400px", overflowY: "auto", padding: "10px" }}>
         <CalciteTabs>
           <CalciteTabNav slot="title-group">
             <CalciteTabTitle selected>Filters</CalciteTabTitle>
@@ -127,34 +127,40 @@ export const ActivitiesList = (props: Props): JSX.Element => {
                 label="Amenities"
                 selectionMode="multiple"
                 onCalciteListChange={(evt) => {
-                  const selectedItemLabels = evt.target.selectedItems.map(
-                    (item) => item.label
-                  );
-                  //const items = new Set([...rankingItems, ...selectedItemLabels]);
-                  const set1 = new Set(rankingItems);
-                  const set2 = new Set(selectedItemLabels);
-                  const overlap = new Set(
-                    [...set1].filter((item) => set2.has(item))
-                  );
-                  //console.log(`Overlap: ${[...overlap].join(", ")}`);
+                  const items = new Set([
+                    ...rankingItems,
+                    ...evt.target.selectedItems.map((item) => item.label),
+                  ]);
+                  setRankingItems([...items]);
+                  // const selectedItemLabels = evt.target.selectedItems.map(
+                  //   (item) => item.label
+                  // );
+                  // //const items = new Set([...rankingItems, ...selectedItemLabels]);
+                  // const set1 = new Set(rankingItems);
+                  // const set2 = new Set(selectedItemLabels);
+                  // const overlap = new Set(
+                  //   [...set1].filter((item) => set2.has(item))
+                  // );
+                  // //console.log(`Overlap: ${[...overlap].join(", ")}`);
 
-                  // Step 3: Exclude the overlap
-                  const set1Exclusive = new Set(
-                    [...set1].filter((item) => !overlap.has(item))
-                  );
-                  const set2Exclusive = new Set(
-                    [...set2].filter((item) => !overlap.has(item))
-                  );
+                  // // Step 3: Exclude the overlap
+                  // const set1Exclusive = new Set(
+                  //   [...set1].filter((item) => !overlap.has(item))
+                  // );
+                  // const set2Exclusive = new Set(
+                  //   [...set2].filter((item) => !overlap.has(item))
+                  // );
 
-                  // Step 4: Combine the results
-                  const result = [...set1Exclusive, ...set2Exclusive];
-                  //console.log(`Result: ${result.join(", ")}`);
-                  setRankingItems(result);
+                  // // Step 4: Combine the results
+                  // const result = [...set1Exclusive, ...set2Exclusive];
+                  // //console.log(`Result: ${result.join(", ")}`);
+                  // setRankingItems(result);
                 }}
               >
                 {amenities}
               </CalciteList>
             </CalciteBlock>
+            {/* <CalciteButton onClick={}>clear filters</CalciteButton> */}
             <CalciteBlock heading="Rank" open>
               <CalciteList
                 dragEnabled={true}
