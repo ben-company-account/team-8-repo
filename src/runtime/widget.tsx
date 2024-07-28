@@ -126,7 +126,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
     if (jmv) {
       setMapView(jmv);
       updateAllFeatures(jmv);
-      setImportantAttributes(["deer_score", "fern_pine_score"]);
+      //setImportantAttributes(["deer_score", "fern_pine_score"]);
     } else {
       setMapView(jmv);
     }
