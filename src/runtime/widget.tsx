@@ -16,14 +16,13 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import Feature from "@arcgis/core/widgets/Feature";
 import Graphic from "@arcgis/core/Graphic";
 import { CalciteButton } from "calcite-components";
-import { ActivitiesList } from "../Components/activitySelection";
 import { useEffect } from "react";
 import ResultItem from "../Components/resultItem";
+import { CalciteLabel } from "calcite-components";
+import { ActivitiesList } from "../Components/activitySelection";
 
-type State = {};
 
 const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
-  const [state, setState] = useState<State>();
 
   const [mapView, setMapView] = useState<JimuMapView>(null);
 
@@ -93,21 +92,6 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
       console.log("SDFDSF");
       await layer.load();
 
-      // console.log(layer)
-      // console.log("SDFSDF")
-      // console.log(layer.type)
-
-      // // Will hopefully just be one feature layer
-      // let featureLayers: __esri.Collection<FeatureLayer>
-
-      // // Add layers of type FeatureLayer to the Colections object featureLayers
-      // allEditableLayers.map((lay) => {
-      //     console.log("ESEHHSF")
-      //     if (lay.type === "feature") {
-      //         featureLayers.add(lay)
-      //     }
-      // })
-
       layer.queryFeatures().then((res: __esri.FeatureSet) => {
         console.log("HERE?");
 
@@ -130,8 +114,10 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
   return (
     <div className="widget">
-      <CalciteButton onClick={run}>RUN BUTTON</CalciteButton>
-      hello
+      {/* <CalciteButton onClick={run}>RUN BUTTON</CalciteButton> */}
+      <CalciteLabel>Selection</CalciteLabel>
+
+      <ActivitiesList func={run} locationListItems={topTenFeatures}></ActivitiesList>
       <JimuMapViewComponent
         useMapWidgetId={props.useMapWidgetIds?.[0]}
         onActiveViewChange={activeViewChangeHandler}
