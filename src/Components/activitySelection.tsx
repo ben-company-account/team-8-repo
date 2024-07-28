@@ -11,7 +11,13 @@ import { treeTypesDict } from "../runtime/activitiesManifest";
 import { plantsAnimalsDict } from "../runtime/activitiesManifest";
 import { activitiesDict } from "../runtime/activitiesManifest";
 import { otherAmenitiesDict } from "../runtime/activitiesManifest";
-export const ActivitiesList = (): JSX.Element => {
+
+
+type Props = {
+  func: () => void
+}
+
+export const ActivitiesList = (props: Props): JSX.Element => {
   //list of keys that will be used for making fields in comboboxes
   const treeListItems = [];
   const plantAnimalItems = [];
@@ -49,7 +55,7 @@ export const ActivitiesList = (): JSX.Element => {
   }
 
   return (
-    <>
+    
       <CalcitePanel>
         <div style={{ maxHeight: "600px", overflowY: "auto", padding: "10px" }}>
           <CalciteBlock collapsible open heading="trees">
@@ -143,14 +149,14 @@ export const ActivitiesList = (): JSX.Element => {
             >
               {htmlItems}
             </CalciteList>
-            <CalciteButton
+            <CalciteButton onClick={props.func}
               {...(htmlItems.length === 0 ? { disabled: true } : {})}
             >
-              Find Locations s
+              Find Locations 
             </CalciteButton>
           </CalciteBlock>
         </div>
       </CalcitePanel>
-    </>
+    
   );
 };
