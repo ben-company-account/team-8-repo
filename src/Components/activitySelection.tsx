@@ -70,14 +70,14 @@ export const ActivitiesList = (props: Props): JSX.Element => {
 
   return (
     <CalcitePanel>
-      <div style={{ maxHeight: "400px", overflowY: "auto", padding: "10px" }}>
+      <div style={{ maxHeight: "595px", overflowY: "auto", padding: "10px" }}>
         <CalciteTabs>
           <CalciteTabNav slot="title-group">
             <CalciteTabTitle selected>Filters</CalciteTabTitle>
             <CalciteTabTitle>Results</CalciteTabTitle>
           </CalciteTabNav>
           <CalciteTab>
-            <CalciteBlock collapsible open heading="trees">
+            <CalciteBlock collapsible open heading="Trees">
               <CalciteList
                 label="Trees"
                 selectionMode="multiple"
@@ -92,7 +92,7 @@ export const ActivitiesList = (props: Props): JSX.Element => {
                 {treeListItems}
               </CalciteList>
             </CalciteBlock>
-            <CalciteBlock collapsible heading="Plants and Animals">
+            <CalciteBlock collapsible heading="Plants and Wildlife">
               <CalciteList
                 label="Plants and animals"
                 selectionMode="multiple"
@@ -209,7 +209,7 @@ export const ActivitiesList = (props: Props): JSX.Element => {
           </CalciteTab>
           <CalciteTab>
             <CalciteBlock
-              heading="results"
+              heading="Results"
               open
               {...(htmlItems.length === 0 ? { disabled: true } : {})}
             >
