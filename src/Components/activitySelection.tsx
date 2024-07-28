@@ -146,7 +146,7 @@ export const ActivitiesList = (): JSX.Element => {
             <CalciteButton
               {...(htmlItems.length === 0 ? { disabled: true } : {})}
             >
-              Find Locations
+              Find Locations s
             </CalciteButton>
           </CalciteBlock>
         </div>
