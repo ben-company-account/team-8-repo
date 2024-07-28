@@ -141,9 +141,8 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
     return (
         <div className="widget">
 
-            <CalciteButton onClick={run}>
-                RUN BUTTON
-            </CalciteButton>
+            <ActivitiesList func={run}></ActivitiesList>
+
             hello
             <JimuMapViewComponent
                 useMapWidgetId={props.useMapWidgetIds?.[0]}

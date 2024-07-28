@@ -5,7 +5,13 @@ import { treeTypesDict } from "../runtime/activitiesManifest";
 import { plantsAnimalsDict } from "../runtime/activitiesManifest";
 import { activitiesDict } from "../runtime/activitiesManifest";
 import { otherAmenitiesDict } from "../runtime/activitiesManifest";
-export const ActivitiesList = (): JSX.Element => {
+
+
+type Props = {
+  func: () => void
+}
+
+export const ActivitiesList = (props: Props): JSX.Element => {
   //list of keys that will be used for making fields in comboboxes
   const treeListItems = [];
   const plantAnimalItems = [];
