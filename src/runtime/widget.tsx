@@ -33,10 +33,12 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
   const [topTenFeatures, setTopTenFeatures] = useState<Graphic[]>(null);
 
   const run = (): void => {
+    console.log("run is running");
     determineOrdering();
-    console.log(importantAttributes);
   };
-
+  const handleEvent = (selected): void => {
+    setImportantAttributes(selected);
+  };
   const determineOrdering = (): void => {
     console.log("SDFDS");
     // For each feature / graphic in our feature layer
@@ -96,9 +98,11 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         console.log("HERE?");
 
         setAllFeatures(res.features);
+        console.log("all features set");
       });
     } else {
       setAllFeatures(null);
+      console.log("all features not selected");
     }
   };
 
@@ -106,7 +110,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
     if (jmv) {
       setMapView(jmv);
       updateAllFeatures(jmv);
-      setImportantAttributes(["deer_score", "fern_pine_score"]);
+      //setImportantAttributes(["deer_score", "fern_pine_score"]);
     } else {
       setMapView(jmv);
     }
@@ -114,10 +118,19 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
   return (
     <div className="widget">
-      {/* <CalciteButton onClick={run}>RUN BUTTON</CalciteButton> */}
-      <CalciteLabel>Selection</CalciteLabel>
-
-      <ActivitiesList func={run} locationListItems={topTenFeatures}></ActivitiesList>
+      {/* <CalciteButton onClick={run}>RUN BUTTON</CalciteButton>
+      hello */}
+      <ActivitiesList
+        locationListItems={
+          topTenFeatures
+            ? topTenFeatures.map((graph) => (
+                <ResultItem graphic={graph} mapView={mapView} />
+              ))
+            : []
+        }
+        func={run}
+        handleEvent={handleEvent}
+      ></ActivitiesList>
       <JimuMapViewComponent
         useMapWidgetId={props.useMapWidgetIds?.[0]}
         onActiveViewChange={activeViewChangeHandler}
