@@ -37,7 +37,9 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
     console.log("run is running");
     determineOrdering();
   };
-
+  const handleEvent = (selected): void => {
+    setImportantAttributes(selected);
+  };
   const determineOrdering = (): void => {
     console.log("SDFDS");
     // For each feature / graphic in our feature layer
@@ -132,8 +134,19 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
   return (
     <div className="widget">
-      <CalciteButton onClick={run}>RUN BUTTON</CalciteButton>
-      hello
+      {/* <CalciteButton onClick={run}>RUN BUTTON</CalciteButton>
+      hello */}
+      <ActivitiesList
+        locationListItems={
+          topTenFeatures
+            ? topTenFeatures.map((graph) => (
+                <ResultItem graphic={graph} mapView={mapView} />
+              ))
+            : []
+        }
+        func={run}
+        handleEvent={handleEvent}
+      ></ActivitiesList>
       <JimuMapViewComponent
         useMapWidgetId={props.useMapWidgetIds?.[0]}
         onActiveViewChange={activeViewChangeHandler}

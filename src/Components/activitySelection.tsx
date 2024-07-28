@@ -18,7 +18,7 @@ import { otherAmenitiesDict } from "../runtime/activitiesManifest";
 
 interface Props {
   func: () => void;
-  locationListItems: any[];
+  locationListItems?: any[];
   handleEvent: (selected) => void;
 }
 
@@ -33,7 +33,9 @@ export const ActivitiesList = (props: Props): JSX.Element => {
   const [finalRanking, setFinalRanking] = useState<string[]>([]);
   const [locationItems, setLocationItems] = useState<any[]>([]);
   useEffect(() => {
-    setLocationItems(props.locationListItems);
+    if (props.locationListItems) {
+      setLocationItems(props.locationListItems);
+    }
   }, [props.locationListItems]);
   useEffect(() => {
     props.handleEvent(finalRanking);
