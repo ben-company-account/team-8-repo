@@ -23,8 +23,9 @@ import { ActivitiesList } from "../Components/activitySelection";
 import FeatureLayer from "esri/layers/FeatureLayer"
 import WebMap from "@arcgis/core/WebMap";
 import esriRequest from 'esri/request';
+import FeaturesSet from "dist/widgets/arcgis/near-me/src/runtime/components/features-set";
 
-import jsonObj from "./thing.json"
+import jso from './thing.json'
 
 
 
@@ -97,7 +98,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
       }
 
 
-      console.log(jsonObj)
+      // console.log(jsonObj)
       // for (const obj in jsonObj.objectIds){
       //   esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", 
       //     {
@@ -110,40 +111,64 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
       //   )
 
 
-      esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", {
-        responseType: "json", 
-        query: {
-          f: "json", 
-          where: "1=1"
-        }
-      }).then(res => {
-        console.log(res)
-        
-      })
+      // esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", {
+      //   responseType: "json",
+      //   query: {
+      //     f: "json",
+      //     where: "1=1"
+      //   }
+      // }).then(res => {
+      //   const jsonStr = JSON.stringify(res)
 
+      //   const jsonObject = JSON.parse(jsonStr);
+
+      //   const featset = new FeaturesSet(jsonObject)
+
+
+      //   setAllFeatures(featset.features)
+
+      // })
+
+      const ids: number[] = jso["objectIds"]
+      console.log(ids)
+
+      const graphs: Graphic[] = []
         esriRequest("https://services8.arcgis.com/LLNIdHmmdjO2qQ5q/arcgis/rest/services/LA_County_Parks___Open_Spaces_WFL1/FeatureServer/4/query", {
           responseType: "json",
           query: {
             f: "json",
-            objectIds: 1354
+            where: "1=1"
           }
-      }
-    ).then((response) => {
-      // Access the feature from the response
-      const feature = response.data.features[0];
-    
-      // Create a graphic using the feature's geometry and attributes
-      const graphic = new Graphic({
-        geometry: feature.geometry,
-        attributes: feature.attributes
-      });
-    
-      // Use the graphic in your code
-      console.log(graphic);
-    }).catch((error) => {
-      // Handle any errors that occur during the request
-      console.error('Error:', error);
-    });
+        }
+        ).then((response) => {
+          // Access the feature from the response
+          const feature = response.data.features[0];
+          //console.log("fest",feature)
+          console.log(response.data.features)
+
+          for (const feat of response.data.features){
+            const graphic = new Graphic({
+              geometry: {type: "polygon", rings: feat.geometry.rings},
+              attributes: feat.attributes
+            });
+
+            graphs.push(graphic)
+          }
+
+          // Create a graphic using the feature's geometry and attributes
+
+
+          // Use the graphic in your code
+          //console.log(graphic);
+
+        }).catch((error) => {
+          // Handle any errors that occur during the request
+          console.error('Error:', error);
+        });
+
+      console.log("g",graphs)
+      setAllFeatures(graphs)
+
 
 
 
