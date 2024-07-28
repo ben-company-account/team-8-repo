@@ -201,17 +201,18 @@ export const ActivitiesList = (props: Props): JSX.Element => {
               </CalciteButton>
             </CalciteBlock>
           </CalciteTab>
+          <CalciteTab>
+            <CalciteBlock
+              heading="results"
+              open
+              {...(htmlItems.length === 0 ? { disabled: true } : {})}
+            >
+              <CalciteList selectionMode="single" selectionAppearance="border">
+                {locationItems}
+              </CalciteList>
+            </CalciteBlock>
+          </CalciteTab>
         </CalciteTabs>
-
-        <CalciteBlock
-          heading="results"
-          collapsible
-          {...(htmlItems.length === 0 ? { disabled: true } : {})}
-        >
-          <CalciteList selectionMode="single" selectionAppearance="border">
-            {locationItems}
-          </CalciteList>
-        </CalciteBlock>
       </div>
     </CalcitePanel>
   );

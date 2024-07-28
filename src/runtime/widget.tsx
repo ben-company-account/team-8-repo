@@ -135,10 +135,6 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         useMapWidgetId={props.useMapWidgetIds?.[0]}
         onActiveViewChange={activeViewChangeHandler}
       />
-      {topTenFeatures &&
-        topTenFeatures.map((graph) => (
-          <ResultItem graphic={graph} mapView={mapView} />
-        ))}
     </div>
   );
 };
