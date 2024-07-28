@@ -2,7 +2,7 @@ import Graphic from "@arcgis/core/Graphic"
 import { JimuMapView } from "jimu-arcgis"
 import React from "react"
 
-const ResultItem = (graphic: Graphic, mapView: JimuMapView) => {
+const ResultItem = ({graphic, mapView}): React.ReactElement => {
 
 
     const zoomTo = () => {
@@ -11,7 +11,7 @@ const ResultItem = (graphic: Graphic, mapView: JimuMapView) => {
 
     return (
         <div className="result-item" onClick={zoomTo}>
-            
+            thing
         </div>
     )
 }   
