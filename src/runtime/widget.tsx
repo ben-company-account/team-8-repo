@@ -30,13 +30,21 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
   const [importantAttributes, setImportantAttributes] = useState<string[]>();
 
   const run = (): void => {
-    console.log("called");
+    console.log("run is running");
     determineOrdering();
+  };
+
+  const handleEvent = (selected): void => {
+    setImportantAttributes(selected);
+    console.log("hi");
+    console.log(selected);
   };
 
   const determineOrdering = (): void => {
     // For each feature / graphic in our feature layer
+    console.log("determineOrdering");
     if (allFeatures) {
+      console.log("all features exists");
       allFeatures.map((graph) => {
         var score = 0;
 
@@ -44,6 +52,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
         graph.attributes.map((prop: string) => {
           // If the feature attribute ends in _score
           if (prop.endsWith("_score")) {
+            console.log();
             // If that attribute is actually important to the teacher
             if (importantAttributes.includes(prop)) {
               score +=
@@ -56,6 +65,8 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
 
         // Sets the score of the graphic
         graph.attributes.score = score;
+        console.log("score");
+        console.log(score);
       });
     }
   };
@@ -82,9 +93,11 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
       const featureLayer: FeatureLayer = featureLayers.at(0);
       featureLayer.queryFeatures().then((res: __esri.FeatureSet) => {
         setAllFeatures(res.features);
+        console.log("all features set");
       });
     } else {
       setAllFeatures(null);
+      console.log("all features not selected");
     }
   };
 
@@ -101,7 +114,7 @@ const Widget = (props: AllWidgetProps<unknown>): React.ReactElement => {
       {/* <CalciteButton onClick={run}>RUN BUTTON</CalciteButton> */}
       <CalciteLabel>Selection</CalciteLabel>
 
-      <ActivitiesList func={run}></ActivitiesList>
+      <ActivitiesList func={run} handleEvent={handleEvent}></ActivitiesList>
       <JimuMapViewComponent
         useMapWidgetId={props.useMapWidgetIds?.[0]}
         onActiveViewChange={activeViewChangeHandler}

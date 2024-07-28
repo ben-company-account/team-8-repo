@@ -1,9 +1,9 @@
 export const treeTypesDict: { [key: string]: string } = {
-  fern_pine: "fern pine",
-  purple_orchid: "purple orchid",
-  european_white_birch: "european white birch",
-  ca_fan_palm_per: "california fan palm",
-  aust_willow_per: "aust willow",
+  fern_pine_score: "fern pine",
+  purple_orchid_score: "purple orchid",
+  european_white_birch_score: "european white birch",
+  ca_fan_palm_score: "california fan palm",
+  aust_willow_score: "aust willow",
 };
 
 export const plantsAnimalsDict: { [key: string]: string } = {
